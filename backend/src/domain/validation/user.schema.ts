@@ -1,6 +1,5 @@
 import { buildJsonSchemas } from 'fastify-zod';
 import { z } from 'zod';
-import moment from 'moment';
 
 export const userSchema = z.object({
   id: z.number(),
@@ -11,14 +10,14 @@ export const userSchema = z.object({
   address: z.string(),
   document: z.string(),
   createdAt: z.date(),
-  updatedAt: z.date().optional(),
+  updatedAt: z.date().optional().nullable(),
 });
 
 export const createUserSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   birth: z.string().transform((val) => {
-    return moment.utc(val, 'DD/MM/YYYY').toDate();
+    return new Date(val);
   }),
   cep: z.string(),
   address: z.string(),

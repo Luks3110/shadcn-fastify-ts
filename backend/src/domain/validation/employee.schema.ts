@@ -32,16 +32,25 @@ export const readEmployeesPaginated = z.object({
   cursor: z.number().optional(),
 });
 
-export const readEmployeesPaginatedResponse = z.object({
-  items: z.array(
-    z.object({
-      ...employeeSchema,
-      user: userSchema,
+export const readEmployeesPaginatedResponse = z.array(
+  z
+    .object({
+      page1: z
+        .object({
+          items: z.array(
+            z.object({
+              ...employeeSchema,
+              user: userSchema,
+            })
+          ),
+          prevCursor: z.number().optional(),
+          nextCursor: z.number().optional(),
+        })
+        .optional(),
     })
-  ),
-  prevCursor: z.number(),
-  nextCursor: z.number(),
-});
+    .passthrough()
+    .nonstrict()
+);
 
 export type CreateEmployeeParams = z.infer<typeof createEmployee>;
 export type CreateEmployeeResponse = z.infer<typeof createEmployeeResponse>;

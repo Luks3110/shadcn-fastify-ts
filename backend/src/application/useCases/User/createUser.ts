@@ -22,13 +22,7 @@ export class CreateUser {
 
       const parsedUser = await createUserSchema
         .parseAsync(user)
-        .then((val) => val)
-        .catch((err) => {
-          console.log(
-            '🚀 ~ file: createUser.ts:24 ~ CreateUser ~ createUser= ~ err:',
-            err
-          );
-        });
+        .then((val) => val);
 
       const result = await this.userRepository.create(
         parsedUser as CreateUserParams

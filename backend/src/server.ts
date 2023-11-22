@@ -9,8 +9,10 @@ import { withRefResolver } from 'fastify-zod';
 import { version } from '../package.json';
 import userRoutes from '@interface/routes/user.route';
 import employeeRoutes from '@interface/routes/employee.route';
+import customerRoutes from '@interface/routes/customer.route';
+import { customerSchemas } from '@domain/validation/customer.schema';
 
-const schemas = [...userSchemas, ...employeeSchemas];
+const schemas = [...userSchemas, ...employeeSchemas, ...customerSchemas];
 
 (async () => {
   const app = new App();
@@ -41,6 +43,7 @@ const schemas = [...userSchemas, ...employeeSchemas];
 
   server.register(userRoutes, { prefix: 'api/users' });
   server.register(employeeRoutes, { prefix: 'api/employees' });
+  server.register(customerRoutes, { prefix: 'api/customers' });
 
   await server.ready();
   server.swagger();

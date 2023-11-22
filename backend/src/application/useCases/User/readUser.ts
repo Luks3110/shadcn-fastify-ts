@@ -15,10 +15,6 @@ export class ReadUser {
       const parsedUser = await readUserSchema.parseAsync(user);
 
       const result = await this.userRepository.read(parsedUser.userId);
-      console.log(
-        '🚀 ~ file: readUser.ts:22 ~ ReadUser ~ readUser= ~ result:',
-        result
-      );
 
       if (!result) {
         const error = new Error('User not found') as any;
@@ -28,10 +24,6 @@ export class ReadUser {
 
       return result;
     } catch (error: any) {
-      console.log(
-        '🚀 ~ file: readUser.ts:21 ~ ReadUser ~ createUser= ~ error:',
-        error
-      );
       console.error(error?.message);
       throw error;
     }

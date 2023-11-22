@@ -21,6 +21,12 @@ import {
   FindMostCommonCep,
   ReadEmployeesPaginated,
 } from '@application/useCases/Employees';
+import { CustomerRepository } from '@infrastructure/repositories/Customer/customer.repository';
+import CustomerController from '@interface/controller/customer.controller';
+import {
+  CreateCustomer,
+  ReadCustomersPaginated,
+} from '@application/useCases/Customers';
 
 container.register<PrismaProvider>(PrismaProvider.name, PrismaProvider);
 container.register<ViaCepService>(ViaCepService.name, ViaCepService);
@@ -47,6 +53,19 @@ container.register<DeleteEmployee>(DeleteEmployee.name, DeleteEmployee);
 container.register<ReadEmployeesPaginated>(
   ReadEmployeesPaginated.name,
   ReadEmployeesPaginated
+);
+container.register<CustomerRepository>(
+  CustomerRepository.name,
+  CustomerRepository
+);
+container.register<CustomerController>(
+  CustomerController.name,
+  CustomerController
+);
+container.register<CreateCustomer>(CreateCustomer.name, CreateCustomer);
+container.register<ReadCustomersPaginated>(
+  ReadCustomersPaginated.name,
+  ReadCustomersPaginated
 );
 
 export { container };
