@@ -1,23 +1,51 @@
 import 'reflect-metadata';
 
-import UserRoute from '@interface/routes/user.route';
 import App from '@infrastructure/webserver/server';
-import { container } from '@application/core/container';
 import { userSchemas } from '@domain/validation/user.schema';
-import EmployeeRoute from '@interface/routes/employee.route';
 import { employeeSchemas } from '@domain/validation/employee.schema';
-
-const userRoute = container.resolve(UserRoute);
-const employeeRoute = container.resolve(EmployeeRoute);
+import swagger from '@fastify/swagger';
+import swaggerUI from '@fastify/swagger-ui';
+import { withRefResolver } from 'fastify-zod';
+import { version } from '../package.json';
+import userRoutes from '@interface/routes/user.route';
+import employeeRoutes from '@interface/routes/employee.route';
 
 const schemas = [...userSchemas, ...employeeSchemas];
 
-export const app = new App({
-  routes: [userRoute, employeeRoute],
-});
+(async () => {
+  const app = new App();
 
-for (const schema of schemas) {
-  app.app.addSchema(schema);
-}
+  const server = app.app;
 
-app.listen();
+  await server.register(
+    swagger,
+    withRefResolver({
+      mode: 'dynamic',
+      swagger: {
+        info: {
+          title: 'Gertrudes API',
+          version,
+        },
+        host: 'localhost:8000',
+      },
+    })
+  );
+
+  for (const schema of schemas) {
+    server.addSchema(schema);
+  }
+
+  await server.register(swaggerUI, {
+    routePrefix: 'docs',
+  });
+
+  server.register(userRoutes, { prefix: 'api/users' });
+  server.register(employeeRoutes, { prefix: 'api/employees' });
+
+  await server.ready();
+  server.swagger();
+
+  console.log(server.printRoutes());
+
+  app.listen();
+})();

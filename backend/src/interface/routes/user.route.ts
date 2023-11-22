@@ -1,48 +1,44 @@
 import { $ref } from '@domain/validation/user.schema';
+import { FastifyInstance } from 'fastify';
+import { container } from '@application/core/container';
 import UserController from '@interface/controller/user.controller';
-import { FastifyInstance, FastifyPluginOptions } from 'fastify';
 
-import { inject, injectable } from 'tsyringe';
+async function userRoutes(server: FastifyInstance) {
+  const userController = container.resolve(UserController);
 
-@injectable()
-class UserRoute {
-  constructor(
-    @inject(UserController.name)
-    private readonly userController: UserController
-  ) {}
-  public prefix_route = '/user';
-
-  public routes = async (
-    fastify: FastifyInstance,
-    _options: FastifyPluginOptions,
-    _done: any
-  ) => {
-    fastify.post(
-      '/create',
-      {
-        schema: {
-          body: $ref('createUserSchema'),
-          response: {
-            201: $ref('userSchema'),
-          },
+  server.post(
+    '/create',
+    {
+      schema: {
+        body: $ref('createUserSchema'),
+        response: {
+          201: $ref('userSchema'),
         },
       },
-      this.userController.create
-    );
+    },
+    userController.create
+  );
 
-    fastify.get(
-      '/read/:userId',
-      {
-        schema: {
-          params: $ref('readUserSchema'),
-          response: {
-            200: $ref('userSchema'),
+  server.get(
+    '/read/:userId',
+    {
+      schema: {
+        params: {
+          type: 'object',
+          properties: {
+            userId: {
+              type: 'number',
+              description: 'user id',
+            },
           },
         },
+        response: {
+          200: $ref('userSchema'),
+        },
       },
-      this.userController.read
-    );
-  };
+    },
+    userController.read
+  );
 }
 
-export default UserRoute;
+export default userRoutes;

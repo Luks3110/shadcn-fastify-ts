@@ -92,6 +92,10 @@ class EmployeeController {
           params
         );
 
+        if (!result?.length) {
+          return reply.code(404).send({ message: "didn't found any employee" });
+        }
+
       return reply.code(200).send(result);
     } catch (error: any) {
       if (error instanceof AxiosError) {

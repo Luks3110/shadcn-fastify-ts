@@ -8,8 +8,11 @@ dependencies:
   '@fastify/swagger':
     specifier: ^8.12.0
     version: 8.12.0
+  '@fastify/swagger-ui':
+    specifier: ^1.10.1
+    version: 1.10.1
   '@prisma/client':
-    specifier: ^5.6.0
+    specifier: 5.6.0
     version: 5.6.0(prisma@5.6.0)
   axios:
     specifier: ^1.6.2
@@ -17,6 +20,9 @@ dependencies:
   fastify:
     specifier: ^4.24.3
     version: 4.24.3
+  fastify-list-routes:
+    specifier: ^1.0.0
+    version: 1.0.0
   fastify-zod:
     specifier: ^1.4.0
     version: 1.4.0(fastify@4.24.3)
@@ -36,7 +42,7 @@ dependencies:
 devDependencies:
   '@types/node':
     specifier: ^20.9.2
-    version: 20.9.2
+    version: 20.9.4
   nodemon:
     specifier: ^3.0.1
     version: 3.0.1
@@ -45,10 +51,10 @@ devDependencies:
     version: 5.6.0
   ts-node:
     specifier: ^10.9.1
-    version: 10.9.1(@types/node@20.9.2)(typescript@5.3.2)
+    version: 10.9.1(@types/node@20.9.4)(typescript@5.3.2)
   ts-node-dev:
     specifier: ^2.0.0
-    version: 2.0.0(@types/node@20.9.2)(typescript@5.3.2)
+    version: 2.0.0(@types/node@20.9.4)(typescript@5.3.2)
   tsconfig-paths:
     specifier: ^4.2.0
     version: 4.2.0
@@ -198,8 +204,8 @@ packages:
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
     dev: false
 
-  /@types/node@20.9.2:
-    resolution: {integrity: sha512-WHZXKFCEyIUJzAwh3NyyTHYSR35SevJ6mZ1nWwJafKtiQbqRTIKSRcw3Ma3acqgsent3RRDqeVwpHntMk+9irg==}
+  /@types/node@20.9.4:
+    resolution: {integrity: sha512-wmyg8HUhcn6ACjsn8oKYjkN/zUzQeNtMy44weTJSM6p4MMzEOuKbA3OjJ267uPCOW7Xex9dyrNTful8XTQYoDA==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -440,7 +446,7 @@ packages:
       supports-color:
         optional: true
     dependencies:
-      ms: 2.1.2
+      ms: 2.1.3
       supports-color: 5.5.0
     dev: true
 
@@ -535,6 +541,12 @@ packages:
 
   /fast-uri@2.3.0:
     resolution: {integrity: sha512-eel5UKGn369gGEWOqBShmFJWfq/xSJvsgDzgLYC845GneayWvXBf0lJCBn5qTABfewy1ZDPoaR5OZCP+kssfuw==}
+    dev: false
+
+  /fastify-list-routes@1.0.0:
+    resolution: {integrity: sha512-1ayHJiHW54yDlyRTUwEmIB0kH1eFd29I6uIp3/23n8rbGCKwqQzTLKUxHTpmlSN2FG2ceQIrh5HRaNUh1m0ZAA==}
+    dependencies:
+      fastify-plugin: 4.5.1
     dev: false
 
   /fastify-plugin@4.5.1:
@@ -860,6 +872,11 @@ packages:
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+    dev: false
+
+  /ms@2.1.3:
+    resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+    dev: true
 
   /no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
@@ -1232,7 +1249,7 @@ packages:
     hasBin: true
     dev: true
 
-  /ts-node-dev@2.0.0(@types/node@20.9.2)(typescript@5.3.2):
+  /ts-node-dev@2.0.0(@types/node@20.9.4)(typescript@5.3.2):
     resolution: {integrity: sha512-ywMrhCfH6M75yftYvrvNarLEY+SUXtUvU8/0Z6llrHQVBx12GiFk5sStF8UdfE/yfzk9IAq7O5EEbTQsxlBI8w==}
     engines: {node: '>=0.8.0'}
     hasBin: true
@@ -1251,7 +1268,7 @@ packages:
       rimraf: 2.7.1
       source-map-support: 0.5.21
       tree-kill: 1.2.2
-      ts-node: 10.9.1(@types/node@20.9.2)(typescript@5.3.2)
+      ts-node: 10.9.1(@types/node@20.9.4)(typescript@5.3.2)
       tsconfig: 7.0.0
       typescript: 5.3.2
     transitivePeerDependencies:
@@ -1260,7 +1277,7 @@ packages:
       - '@types/node'
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.9.2)(typescript@5.3.2):
+  /ts-node@10.9.1(@types/node@20.9.4)(typescript@5.3.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -1279,7 +1296,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.9.2
+      '@types/node': 20.9.4
       acorn: 8.11.2
       acorn-walk: 8.3.0
       arg: 4.1.3

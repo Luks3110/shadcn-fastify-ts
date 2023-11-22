@@ -6,7 +6,7 @@ class App {
   public app_domain: string = config.app.domain;
   public app_port: number = config.app.port;
 
-  constructor(appInit: { plugins?: any; routes: any }) {
+  constructor(appInit?: { plugins?: any; routes?: any }) {
     this.app = Fastify();
     this.app.addHook('preHandler', (req, _reply, done) => {
       if (req.body) {
@@ -14,8 +14,8 @@ class App {
       }
       done();
     });
-    this.register(appInit.plugins);
-    this.routes(appInit.routes);
+    this.register(appInit?.plugins);
+    this.routes(appInit?.routes);
   }
 
   private register(plugins: {
@@ -27,13 +27,9 @@ class App {
   }
 
   public routes(routes: { forEach: (arg0: (routes: any) => void) => void }) {
-    routes.forEach((route) => {
+    routes?.forEach((route) => {
       const router = route;
       this.app.register(router.routes, { prefix: router.prefix_route });
-    });
-
-    this.app.get('/healthcheck', async (_, reply) => {
-      reply.send({ healthcheck: 'server is alive' });
     });
   }
 

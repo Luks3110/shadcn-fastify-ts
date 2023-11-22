@@ -1,70 +1,84 @@
-import { $ref } from '@domain/validation/employee.schema';
+import { FastifyInstance } from 'fastify';
+import { container } from '@application/core/container';
 import EmployeeController from '@interface/controller/employee.controller';
-import { FastifyInstance, FastifyPluginOptions } from 'fastify';
+import { $ref } from '@domain/validation/employee.schema';
 
-import { inject, injectable } from 'tsyringe';
+async function employeeRoutes(server: FastifyInstance) {
+  const employeeController = container.resolve(EmployeeController);
+  server.get(
+    '/findMostCommonCep',
+    {
+      schema: {
+        response: {
+          200: $ref('mostCommonCepResponse'),
+        },
+      },
+    },
+    employeeController.findMostCommonCep
+  );
 
-@injectable()
-class EmployeeRoute {
-  constructor(
-    @inject(EmployeeController.name)
-    private readonly employeeController: EmployeeController
-  ) {}
-  public prefix_route = '/employee';
+  server.post(
+    '/create',
+    {
+      schema: {
+        body: $ref('createEmployee'),
+        response: {
+          201: $ref('createEmployeeResponse'),
+        },
+      },
+    },
+    employeeController.create
+  );
 
-  public routes = async (
-    fastify: FastifyInstance,
-    _options: FastifyPluginOptions,
-    _done: any
-  ) => {
-    fastify.get(
-      '/findMostCommonCep',
-      {
-        schema: {
-          response: {
-            200: $ref('mostCommonCepResponse'),
+  server.delete(
+    '/delete/:employeeId',
+    {
+      schema: {
+        params: {
+          type: 'object',
+          properties: {
+            employeeId: {
+              type: 'number',
+              description: 'employee id',
+            },
           },
         },
+        response: {
+          200: $ref('deleteEmployeeResponse'),
+        },
       },
-      this.employeeController.findMostCommonCep
-    );
+    },
+    employeeController.delete
+  );
 
-    fastify.post(
-      '/create',
-      {
-        schema: {
-          response: {
-            201: $ref('createEmployeeResponse'),
+  server.get(
+    '/readByPage',
+    {
+      schema: {
+        querystring: {
+          type: 'object',
+          properties: {
+            cursor: {
+              type: 'number',
+              description: 'the id of the employee to start the pagination',
+            },
+            take: {
+              type: 'number',
+              description: 'the amount of employees by page',
+            },
+            skip: {
+              type: 'number',
+              description: 'the amount of employees to skip before the cursor',
+            },
           },
         },
-      },
-      this.employeeController.create
-    );
-
-    fastify.delete(
-      '/delete/:employeeId',
-      {
-        schema: {
-          params: $ref('deleteEmployee'),
-          response: {
-            200: $ref('deleteEmployeeResponse'),
-          },
+        response: { 
+          200: $ref('readEmployeesPaginatedResponse') 
         },
       },
-      this.employeeController.delete
-    );
-
-    fastify.get(
-      '/readByPage',
-      {
-        schema: {
-          querystring: $ref('readEmployeesPaginated'),
-          response: {},
-        },
-      },
-      this.employeeController.readEmployeesPaginated
-    );
-  };
+    },
+    employeeController.readEmployeesPaginated
+  );
 }
 
-export default EmployeeRoute;
+export default employeeRoutes;

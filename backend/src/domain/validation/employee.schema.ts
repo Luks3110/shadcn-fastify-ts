@@ -32,6 +32,17 @@ export const readEmployeesPaginated = z.object({
   cursor: z.number().optional(),
 });
 
+export const readEmployeesPaginatedResponse = z.object({
+  items: z.array(
+    z.object({
+      ...employeeSchema,
+      user: userSchema,
+    })
+  ),
+  prevCursor: z.number(),
+  nextCursor: z.number(),
+});
+
 export type CreateEmployeeParams = z.infer<typeof createEmployee>;
 export type CreateEmployeeResponse = z.infer<typeof createEmployeeResponse>;
 
@@ -51,6 +62,19 @@ export const { schemas: employeeSchemas, $ref } = buildJsonSchemas(
     deleteEmployeeResponse,
     readEmployeesPaginated,
     mostCommonCepResponse,
+    employeeSchema: z.object(employeeSchema),
+    readEmployeesPaginatedResponse,
   },
   { $id: 'EmployeeSchemas' }
 );
+
+export const employeeJsonSchemas = {
+  createEmployee,
+  createEmployeeResponse,
+  deleteEmployee,
+  deleteEmployeeResponse,
+  readEmployeesPaginated,
+  mostCommonCepResponse,
+  employeeSchema: z.object(employeeSchema),
+  readEmployeesPaginatedResponse,
+};

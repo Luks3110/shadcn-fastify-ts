@@ -12,7 +12,8 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "outDir": "lib"
+    "outDir": "lib",
+    "resolveJsonModule": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "tests/**/*.test.ts"],
   "exclude": [

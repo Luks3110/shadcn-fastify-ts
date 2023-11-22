@@ -6,7 +6,6 @@ import {
   UserRepository,
 } from '@infrastructure/repositories/User';
 import UserController from '@interface/controller/user.controller';
-import UserRoute from '@interface/routes/user.route';
 import ViaCepService from '@infrastructure/external/api_services/via-cep-api/viaCepService';
 import {
   CreateUser,
@@ -15,7 +14,6 @@ import {
   UpdateUser,
 } from '@application/useCases/User';
 import { EmployeeRepository } from '@infrastructure/repositories/Employee/employee.repository';
-import EmployeeRoute from '@interface/routes/employee.route';
 import EmployeeController from '@interface/controller/employee.controller';
 import {
   CreateEmployee,
@@ -26,7 +24,6 @@ import {
 
 container.register<PrismaProvider>(PrismaProvider.name, PrismaProvider);
 container.register<ViaCepService>(ViaCepService.name, ViaCepService);
-container.register<UserRoute>(UserRoute.name, UserRoute);
 container.register<UserController>(UserController.name, UserController);
 container.register<IUserRepository>(UserRepository.name, UserRepository);
 container.register<CreateUser>(CreateUser.name, CreateUser);
@@ -45,7 +42,6 @@ container.register<EmployeeController>(
   EmployeeController.name,
   EmployeeController
 );
-container.register<EmployeeRoute>(EmployeeRoute.name, EmployeeRoute);
 container.register<CreateEmployee>(CreateEmployee.name, CreateEmployee);
 container.register<DeleteEmployee>(DeleteEmployee.name, DeleteEmployee);
 container.register<ReadEmployeesPaginated>(
