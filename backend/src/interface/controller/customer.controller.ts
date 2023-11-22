@@ -3,7 +3,6 @@ import { ReadCustomersPaginated } from '@application/useCases/Customers/readCust
 import {
   CreateCustomerParams,
   ReadCustomersPaginatedParams,
-  readCustomersPaginatedResponse,
 } from '@domain/validation/customer.schema';
 import { formatZodErrors } from '@infrastructure/utils/errorHandling';
 import { AxiosError } from 'axios';
