@@ -21,8 +21,8 @@ import {
   CreateEmployee,
   DeleteEmployee,
   FindMostCommonCep,
+  ReadEmployeesPaginated,
 } from '@application/useCases/Employees';
-import { ReadEmployeesPaginated } from '@application/useCases/Employees/readEmployeesPaginated';
 
 container.register<PrismaProvider>(PrismaProvider.name, PrismaProvider);
 container.register<ViaCepService>(ViaCepService.name, ViaCepService);
