@@ -17,7 +17,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.backend.dev
     volumes:
       - ./backend:/app/backend
       - /app/backend/node_modules
