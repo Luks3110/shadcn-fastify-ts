@@ -1,0 +1,19 @@
+# Set runner/*
+FROM oven/bun:latest as runner
+
+WORKDIR /app/frontend
+
+COPY ./frontend /app/frontend/
+
+ENV NEXT_PUBLIC_API_URL="http://backend:8000/api/"
+
+# Install project dependencies
+RUN bun install
+
+ENV PORT 3000
+# set hostname to localhost
+ENV HOSTNAME "0.0.0.0"
+
+# Expose port and start app
+EXPOSE 3000
+ENTRYPOINT ["bun", "dev"]

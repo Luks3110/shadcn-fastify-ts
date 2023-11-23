@@ -33,6 +33,25 @@ services:
       - bitway
     env_file:
       - .env.development
+  frontend:
+    container_name: frontend
+    restart: always
+    build:
+      context: .
+      args:
+        - NEXT_PUBLIC_API_URL="http://backend:8000/api/"
+      dockerfile: Dockerfile.frontend.dev
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - bitway
+    env_file:
+      - ./frontend/.env.production
   nginx:
     image: nginx:latest
     container_name: nginx
