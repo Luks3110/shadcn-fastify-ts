@@ -7,7 +7,7 @@ async function getEmployees(params?: PaginationParams) {
 
   const urlParams = new URLSearchParams({ take, skip, cursor });
   const { data } = await api.get<EmployeePaginated[]>(
-    `/employees/readByPage?${urlParams.toString}`
+    `/employees/readByPage?${urlParams.toString()}`
   );
   return data;
 }

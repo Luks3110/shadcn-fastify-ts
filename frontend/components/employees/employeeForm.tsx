@@ -18,6 +18,8 @@ import moment from 'moment';
 import { createEmployee } from '@/services/employee/createEmployee';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useToast } from '../ui/use-toast';
+import { ToastAction } from '@radix-ui/react-toast';
 
 const createEmployeeSchema = z.object({
   name: z.string({ required_error: 'Obrigatório' }),
@@ -34,6 +36,7 @@ export type CreateUserParams = z.infer<typeof createEmployeeSchema>;
 
 export function CreateEmployeeForm() {
   const [customError, setCustomError] = useState('');
+  const { toast } = useToast();
   const router = useRouter();
   const form = useForm<CreateUserParams>({
     resolver: zodResolver(createEmployeeSchema),
@@ -43,9 +46,21 @@ export function CreateEmployeeForm() {
   async function onSubmit(values: CreateUserParams) {
     try {
       await createEmployee(values);
+      toast({
+        title: 'O funcionário foi criado com sucesso.',
+        variant: 'default',
+      });
       router.replace('/employees');
       setCustomError('');
     } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Opa! Algo deu errado.',
+        description: 'Não foi possível criar o funcionário.',
+        action: (
+          <ToastAction altText="Tentar novamente">Tentar novamente</ToastAction>
+        ),
+      });
       setCustomError('Houve um erro ao criar o usuário, tente novamente');
     }
   }

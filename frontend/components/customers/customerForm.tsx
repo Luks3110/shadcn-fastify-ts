@@ -19,6 +19,8 @@ import moment from 'moment';
 import { createCustomer } from '@/services/customer/createCustomer';
 
 import { useRouter } from 'next/navigation';
+import { useToast } from '../ui/use-toast';
+import { ToastAction } from '@radix-ui/react-toast';
 
 const createCustomerSchema = z.object({
   name: z.string({ required_error: 'Obrigatório' }),
@@ -34,6 +36,7 @@ const createCustomerSchema = z.object({
 export type CreateUserParams = z.infer<typeof createCustomerSchema>;
 
 export function CreateCustomerForm() {
+  const { toast } = useToast();
   const router = useRouter();
   const form = useForm<CreateUserParams>({
     resolver: zodResolver(createCustomerSchema),
@@ -43,8 +46,21 @@ export function CreateCustomerForm() {
   async function onSubmit(values: CreateUserParams) {
     try {
       await createCustomer(values);
+      toast({
+        title: 'O cliente foi criado com sucesso.',
+        variant: 'default',
+      });
       router.replace('/customers');
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Opa! Algo deu errado.',
+        description: 'Não foi possível criar o cliente.',
+        action: (
+          <ToastAction altText="Tentar novamente">Tentar novamente</ToastAction>
+        ),
+      });
+    }
   }
 
   return (

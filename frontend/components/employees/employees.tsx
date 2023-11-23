@@ -8,7 +8,6 @@ export default function Employees({
 }: {
   employees: EmployeePaginated[];
 }) {
-  console.log('🚀 ~ file: employees.tsx:11 ~ employees:', employees);
   return (
     <div className="container mx-auto py-10">
       {employees ? (
