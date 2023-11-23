@@ -121,12 +121,11 @@ export class EmployeeRepository {
         hasNext = false;
       }
 
-      if (page) pages.push({ [`page${pageNumber}`]: page });
+      if (page) pages.push(page);
       pageNumber++;
 
       params.cursor = page?.nextCursor;
     }
-
     return pages;
   }
 

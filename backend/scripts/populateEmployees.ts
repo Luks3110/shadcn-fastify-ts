@@ -11,7 +11,10 @@ interface UserData {
 }
 
 const generateFakeData = (): UserData => {
-  const birthDate = faker.date.between('1950-01-01', '2003-12-31');
+  const birthDate = faker.date.between({
+    from: '1950-01-01',
+    to: '2003-12-31',
+  });
   const formattedBirthDate = `${('0' + (birthDate.getMonth() + 1)).slice(
     -2
   )}/${('0' + birthDate.getDate()).slice(-2)}/${birthDate.getFullYear()}`;
@@ -28,7 +31,7 @@ const generateFakeData = (): UserData => {
 const postToEndpoint = async (data: UserData) => {
   try {
     const response = await axios.post(
-      'http://localhost:8000/api/customers/create',
+      'http://localhost:8000/api/employees/create',
       data
     );
     console.log('Data posted:', response.data);
