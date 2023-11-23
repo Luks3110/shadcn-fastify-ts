@@ -99,11 +99,6 @@ export class CustomerRepository {
 
       params.cursor = page?.nextCursor;
     }
-
-    console.log(
-      '🚀 ~ file: customer.repository.ts:104 ~ CustomerRepository ~ readWithPagination ~ pages:',
-      pages[0].items
-    );
     return pages;
   }
 

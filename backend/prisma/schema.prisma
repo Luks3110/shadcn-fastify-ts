@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["debian-openssl-3.0.x", "linux-musl", "linux-musl-openssl-3.0.x"]
 }
 
@@ -11,29 +11,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  id    Int     @id @default(autoincrement())
-  email String @unique
-  name  String
-  birth DateTime
-  cep String
-  address String
-  document String @unique
-  createdAt DateTime @default(now())
+  id        Int       @id @default(autoincrement())
+  email     String?   @unique
+  name      String
+  birth     DateTime
+  cep       String
+  address   String
+  document  String    @unique
+  createdAt DateTime  @default(now())
   updatedAt DateTime?
-  customer Customer?
-  employee Employee?
+  customer  Customer?
+  employee  Employee?
 }
 
 model Customer {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  userId Int @unique
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
 }
 
 model Employee {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  userId Int @unique
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
 }

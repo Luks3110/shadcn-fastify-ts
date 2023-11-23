@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const userSchema = z.object({
   id: z.number(),
   name: z.string(),
-  email: z.string().email(),
+  email: z.string().email().optional(),
   birth: z.date(),
   cep: z.string(),
   address: z.string(),
@@ -15,7 +15,7 @@ export const userSchema = z.object({
 
 export const createUserSchema = z.object({
   name: z.string(),
-  email: z.string().email(),
+  email: z.string().email().optional(),
   birth: z.string().transform((val) => {
     return new Date(val);
   }),

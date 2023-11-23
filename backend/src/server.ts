@@ -5,6 +5,7 @@ import { userSchemas } from '@domain/validation/user.schema';
 import { employeeSchemas } from '@domain/validation/employee.schema';
 import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
+import cors from '@fastify/cors';
 import { withRefResolver } from 'fastify-zod';
 import { version } from '../package.json';
 import userRoutes from '@interface/routes/user.route';
@@ -39,6 +40,10 @@ const schemas = [...userSchemas, ...employeeSchemas, ...customerSchemas];
 
   await server.register(swaggerUI, {
     routePrefix: 'docs',
+  });
+
+  await server.register(cors, {
+    origin: true,
   });
 
   server.register(userRoutes, { prefix: 'api/users' });
