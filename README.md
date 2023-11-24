@@ -64,3 +64,7 @@ Run the following commands to compose the containers:
 ```bash
 docker compose -f "docker.compose.yaml" up -d --build
 ```
+
+# Docs
+
+You can find the swagger of the backend at /docs
